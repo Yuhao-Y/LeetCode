@@ -9,12 +9,17 @@ public class DivideTwoIntegers
             return 0;
         }
 
-        long divisorU = divisor > 0 ? divisor : 0 - divisor;
-        long dividendU = dividend > 0 ? dividend : (long)0 - dividend;
-
-        if( dividendU >= divisor )
+        if( divisor == 1 )
         {
-            result = divide( dividendU, divisorU, result );
+            return dividend;
+        }
+
+        long divisorU = Math.abs( (long) divisor );
+        long dividendU = Math.abs( (long) dividend );
+
+        if( dividendU >= divisorU )
+        {
+            result = divide2( dividendU, divisorU, result );
         }
 
         if( ( dividend < 0 && divisor > 0 ) || ( dividend > 0 && divisor < 0 ) )
@@ -28,30 +33,53 @@ public class DivideTwoIntegers
         }
         else
         {
-            return (int)result;
+            return (int) result;
         }
     }
 
     private long divide( long dividend, long divisor, long result )
     {
-        if(dividend<divisor) return result;
-        
+        if( dividend < divisor )
+            return result;
+
         long sum = divisor;
         long multp = 1;
-        while( dividend >= (sum+sum) )
+        while( dividend >= ( sum + sum ) )
         {
-            sum = sum+sum;
-            multp = multp+multp;
+            sum = sum + sum;
+            multp = multp + multp;
         }
 
-        result = result+multp;
-        
-        return divide(dividend-sum, divisor, result);
+        result = result + multp;
 
+        return divide( dividend - sum, divisor, result );
+
+    }
+
+    private long divide2( long dividend, long divisor, long result )
+    {
+        if( dividend < divisor )
+            return result;
+
+        while( dividend >= divisor )
+        {
+            long digits = 0;
+            while( dividend > ( divisor << 1 ) )
+            {
+                divisor = divisor << 1;
+                digits++;
+            }
+
+            dividend = dividend - divisor;
+            result = result + ( 1 << digits );
+            divisor = divisor >> digits;
+        }
+
+        return result;
     }
 
     public static void main( String[] args )
     {
-        System.out.println( new DivideTwoIntegers().divide( 100,10 ) );
+        System.out.println( new DivideTwoIntegers().divide( 2147483647, 2 ) );
     }
 }
