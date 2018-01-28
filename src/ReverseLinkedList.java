@@ -15,7 +15,27 @@ public class ReverseLinkedList
             newHead = head;
             head = temp;
         }
-
+        
         return newHead;
+    }
+    
+    public ListNode reverseListRecursive( ListNode head ) {
+        
+        if( head == null ) return null;
+        
+        return helper( null, head );
+    }
+    
+    public ListNode helper( ListNode last, ListNode node ) {
+        
+        if( node == null) return last;
+        
+        ListNode tmp = node.next;
+        
+        node.next = last;
+        last = node;
+        
+        return helper( last, tmp);
+        
     }
 }

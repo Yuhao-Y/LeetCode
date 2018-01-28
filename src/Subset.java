@@ -6,25 +6,19 @@ public class Subset
 {
     public List<List<Integer>> subsets( int[] nums )
     {
-        List<List<Integer>> result = new LinkedList<List<Integer>>();
-        result.add( new ArrayList<Integer>() );
-
-        if( nums == null || nums.length < 1 )
-            return result;
-
-        for( int i = 0; i < nums.length; i++ )
-        {
-            int j = result.size() - 1;
-            ArrayList<Integer> temp = new ArrayList<Integer>();
-            temp.add( nums[i] );
-            for( ; j >= 0; j-- )
-            {
-                temp.addAll( result.get( j ) );
-                result.add( new ArrayList<Integer>(temp) );
-                temp.removeAll( result.get( j ) );
-            }
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        result.add( new ArrayList<Integer>());
+        
+        for( int i=0;i<nums.length;i++){
+            int length = result.size();
+            for( int j=0;j<length;j++){
+                List<Integer> list = new ArrayList<Integer>();
+                list.addAll(result.get( j ));
+                list.add(nums[i]);
+                result.add(list);
+            }    
         }
-
+        
         return result;
     }
 

@@ -9,7 +9,8 @@ public class LetterCombination
     public List<String> letterCombinations( String digits )
     {
         List<String> letterList = new LinkedList<String>();
-
+        String s = "s";
+        s.indexOf( 'c' );
         if( digits.length() <= 0 )
         {
             return letterList;

@@ -3,8 +3,34 @@ import java.util.Arrays;
 
 public class MedianOfTwoSortedArrays
 {
-    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        return 0.0;
+    static public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        
+        int i = 0 , j = 0, index = 0;
+        double median = 0, lastMedian = 0;
+        int medianIndex = (nums1.length + nums2.length)/2;
+        
+        while( (i<nums1.length || j<nums2.length) && (index <= medianIndex ) ){
+            
+            lastMedian = median;
+            
+            if( j==nums2.length || ( i<nums1.length && nums1[i] <= nums2[j] ) )
+            { 
+                if( i<nums1.length ) median = nums1[i];
+                i++;
+                
+            }
+            else if( i==nums1.length || ( j<nums2.length && nums1[i] > nums2[j] ) )
+            {
+                if( j <nums2.length) median = nums2[j];
+                j++;
+                
+            }
+            
+            index++;
+        }
+        
+        return ((nums1.length+nums2.length)&1)==1?median:(median+lastMedian)/2;
+        
     }
     
     static public void sort(int begin, int end, int[] num){
@@ -31,8 +57,8 @@ public class MedianOfTwoSortedArrays
     }
     
     public static void main(String[] args){
-        int[] num = new int[]{4,5,3,3,7,8};
-        MedianOfTwoSortedArrays.sort(0,num.length-1,num);
-        System.out.println(Arrays.toString( num ));
+        int[] nums1 = new int[] {1,3};
+        int[] nums2 = new int[] {1,3,4};
+        System.out.println(MedianOfTwoSortedArrays.findMedianSortedArrays( nums1, nums2 ) );
     }
 }

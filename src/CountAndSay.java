@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class CountAndSay
 {
@@ -41,6 +42,32 @@ public class CountAndSay
         {
             return countSay( n, ++currentIndex, say.toString() );
         }
+    }
+    
+public String countAndSay2(int n) {
+        
+        StringBuffer sb = new StringBuffer();
+        sb.append(1);
+        char[] numArray;
+        
+        
+        while(n-->1){
+            numArray = sb.toString().toCharArray();
+            sb = new StringBuffer();
+            int count=0;
+            char last = numArray[0];
+            for( int i=0; i< numArray.length;i++){
+                if(numArray[i]==last) count++;
+                else{
+                    sb.append(String.valueOf(count)+(last-'0'));
+                    count = 1;
+                    last = numArray[i];
+                }
+            }
+           sb.append(String.valueOf(count)+(last-'0'));
+        }
+        
+        return sb.toString();
     }
 
     public static void main( String[] args )
