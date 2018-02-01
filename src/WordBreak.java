@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -47,8 +49,26 @@ public class WordBreak
                 }
             }
         }
-
+        
         return boolArray[boolArray.length - 1];
+    }
+    
+    public boolean wordBreakDP2( String s, List<String> wordDict )
+    {
+        if(s.length()<=0) return true;
+        
+        List<Integer> list = new ArrayList<Integer>();
+        list.add(0);
+        for( int i=1;i<=s.length();i++){
+            for( int j=list.size();j>0;j--){
+                if(wordDict.contains(s.substring(list.get(j-1),i))){
+                    list.add(i);
+                    break;
+                }
+            }
+        }
+        
+        return list.get(list.size()-1)==s.length();
     }
 
     public static void main( String args[] )

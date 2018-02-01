@@ -5,9 +5,9 @@ public class ValidParenthese
     public boolean isValid( String s )
     {
         LinkedList<Character> parenthese = new LinkedList<Character>();
-
+        
         char[] sArray = s.toCharArray();
-
+      
         for( char c : sArray )
         {
             if( c == ')' || c == '}' || c == ']' )

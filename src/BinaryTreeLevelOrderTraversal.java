@@ -10,12 +10,12 @@ public class BinaryTreeLevelOrderTraversal
         if( root == null )
             return result;
 
-        //dfs( result, root, 0 ); //dfs method
-        bfs(result, root); //bfs method
+        //recursive( result, root, 0 ); //dfs method
+        iterator(result, root); //bfs method
         return result;
     }
 
-    private void bfs( List<List<Integer>> result, TreeNode root )
+    private void iterator( List<List<Integer>> result, TreeNode root )
     {
         if( root == null )
             return;
@@ -40,18 +40,17 @@ public class BinaryTreeLevelOrderTraversal
 
     }
 
-    private void dfs( List<List<Integer>> result, TreeNode root, int level )
+    private void recursive( List<List<Integer>> result, TreeNode root, int level )
     {
         if( root == null )
             return;
-
         if( result.size() <= level )
             result.add( new LinkedList<Integer>() );
 
         result.get( level ).add( root.val );
 
-        dfs( result, root.left, level + 1 );
-        dfs( result, root.right, level + 1 );
+        recursive( result, root.left, level + 1 );
+        recursive( result, root.right, level + 1 );
 
     }
 

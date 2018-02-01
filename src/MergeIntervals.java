@@ -3,6 +3,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
 
 public class MergeIntervals
 {
@@ -11,7 +12,13 @@ public class MergeIntervals
         LinkedList<Interval> result = new LinkedList<Interval>();
 
         //sort list firstly.
-        Collections.sort( intervals, new IntervalCompartor() );
+        Collections.sort( intervals, new Comparator<Interval>() {
+            @Override
+            public int compare( Interval o1, Interval o2 )
+            {
+                return o1.start - o2.start;
+            }
+        });
 
         for( Interval interval : intervals )
         {

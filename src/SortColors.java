@@ -46,11 +46,44 @@ public class SortColors
             index++;
         }
     }
+    
+    public void sortNum( int[] nums ) { //follow up of facebook
+        
+        if( nums == null || nums.length<=1 ) return;
+        
+        int left = 0, right = nums.length - 1, i=0;
+        
+        while( i <= right ) {
+            
+            if( nums[i]<=3) {
+                swap( nums, i, left);
+                left++;
+                i++;
+            }else if( nums[i]>=11 && nums[i]<=15 ) {
+                swap( nums, i, right);
+                right--;
+            }else {
+                i++;
+            }
+            
+        }
+        
+    }
+    
+    public void swap( int[] nums, int a , int b ) {
+        int tmp = nums[a];
+        nums[a] = nums[b];
+        nums[b] = tmp;
+    }
 
     public static void main( String[] args )
     {
         int[] nums = new int[] { 1,2,0 };
         new SortColors().sortColors2( nums );
         System.out.println( Arrays.toString( nums ) );
+        
+        int[] nums2 = new int[] {5,7,2,9,1,14,12,10,5,3};
+        new SortColors().sortNum( nums2 );
+        System.out.println( Arrays.toString( nums2 ) );
     }
 }

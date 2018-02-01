@@ -4,95 +4,63 @@ import java.util.List;
 
 public class FourSum
 {
-    //comment
-    public List<List<Integer>> fourSum( int[] nums, int target )
-    {
-        List<List<Integer>> fourNum = new ArrayList<List<Integer>>();
-
-        if( nums.length < 4 )
-        {
-            return fourNum;
-        }
-
+public List<List<Integer>> fourSum(int[] nums, int target) {
+        
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        if( nums == null || nums.length <4) return res;
+        
         Arrays.sort( nums );
-
-        if( nums[0] * 4 > target || nums[nums.length - 1] * 4 < target )
-        {
-            return fourNum;
+        
+        int max = nums[ nums.length - 1 ];
+        
+        for( int i=0; i< nums.length-3; i++){
+            
+            if( ( nums[i]+max*3 )<target) continue;     // i is too small
+            
+            if( nums[i]*4>target) break;    // i is too big
+            
+            for( int j=i+1; j < nums.length-2; j++){
+                
+                if( ( nums[j]+max*2 )<(target - nums[i])) continue;
+                
+                if( nums[j]*3>(target - nums[i]) ) break;
+                
+                List<Integer> list = new ArrayList<Integer>();
+                list.add( nums[i]);
+                list.add( nums[j]);
+                twoSum( nums, j+1, target-nums[i]-nums[j], list, res);
+                while( j<(nums.length-1) && nums[j]==nums[j+1] ) j++;
+            }
+            while( i<(nums.length-1) && nums[i]==nums[i+1] ) i++; // skip the duplicate
         }
-
-        for( int i = 0; i < nums.length - 3; i++ )
-        {
-            if( nums[i] * 4 > target )
-            {
-                break;
-            }
-
-            if( nums[i] + nums[nums.length - 1] * 3 < target )
-            {
-                continue;
-            }
-
-            if( i > 0 && nums[i] == nums[i - 1] )
-            {
-                continue;
-            }
-
-            threeSum( nums, target - nums[i], i + 1, fourNum );
-
-        }
-
-        return fourNum;
+        
+        return res;
     }
-
-    public void threeSum( int[] nums, int target, int low, List<List<Integer>> fourNum )
-    {
-
-        if( nums.length < 3 )
-        {
-
-            return;
-
-        }
-
-        int i = low;
-        while( i < nums.length )
-        {
-            if( i == low || nums[i] != nums[i - 1] )
-            {
-                int j = i + 1, k = nums.length - 1;
-
-                while( j < k  )
-                {
-                    if( nums[i] + nums[j] + nums[k] == target )
-                    {
-                        fourNum.add( Arrays.asList( nums[low - 1], nums[i], nums[j], nums[k] ) );
-                        while( j < k && nums[j] == nums[j + 1] )
-                            j++;
-                        while( j < k && nums[k] == nums[k - 1] )
-                            k--;
-                        j++;
-                        k--;
-                    }
-                    else if( nums[i] + nums[j] + nums[k] < target )
-                    {
-                        while( j < k && nums[j] == nums[j + 1] )
-                            j++;
-                        j++;
-                    }
-                    else
-                    {
-                        while( j < k && nums[k] == nums[k - 1] )
-                            k--;
-                        k--;
-                    }
-                }
-
+    
+    public void twoSum( int[] nums, int start, int target, List<Integer> list, List<List<Integer>> res){
+        int left = start, right =nums.length-1;
+       
+        while( left< right ){
+            
+            if( nums[left]*2 >target) break;
+            
+            if( ( nums[left] + nums[right] ) > target ){
+                //while( left< right && nums[right-1]==nums[right]) right--;
+                right--;
+            }else if( ( nums[left] + nums[right] ) < target ){
+                //while( left< right && nums[left+1]==nums[left]) left++;
+                left++;
+            }else{
+                List<Integer> tmp = new ArrayList<Integer>( list );
+                tmp.add(nums[left]);
+                tmp.add( nums[right]);
+                res.add(tmp);
+                while( left< right && nums[right-1]==nums[right]) right--;
+                while( left< right && nums[left+1]==nums[left]) left++;
+                right--;
+                left++;
             }
-            i++;
         }
-
-        return;
     }
 
     public static void main( String[] args )

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
 
@@ -8,7 +9,7 @@ public class ValidBinarySearchTree
     {
         if(root==null) return true;
         
-        return dfs(root.left,Double.NEGATIVE_INFINITY,root.val)&&dfs(root.right,root.val, Double.POSITIVE_INFINITY);
+        return dfs(root.left,Double.NEGATIVE_INFINITY,root.val)&&dfs(root.right,root.val, Double.POSITIVE_INFINITY); // can use Integer to instead of double, because Integer can be initialed to null
     }
     
     private boolean dfs( TreeNode root, double minValue, double maxValue)
@@ -24,7 +25,7 @@ public class ValidBinarySearchTree
     {
         List<TreeNode> result = new ArrayList<TreeNode>();
         Stack<TreeNode> stack = new Stack<TreeNode>();
-        TreeNode pre = null;
+        TreeNode pre = null;        // can use Integer
         while(root!=null||stack.size()!=0)
         {
             while(root!=null)

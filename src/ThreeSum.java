@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class ThreeSum
 {
     public List<List<Integer>> threeSum( int[] nums )
     {
-
         List<List<Integer>> tripletsList = new ArrayList<List<Integer>>();
 
         Arrays.sort( nums );
@@ -48,7 +48,7 @@ public class ThreeSum
 
         return tripletsList;
     }
-
+    
     public static void main( String[] args )
     {
         ThreeSum threeSum = new ThreeSum();

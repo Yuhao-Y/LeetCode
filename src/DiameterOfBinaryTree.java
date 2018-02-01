@@ -1,24 +1,23 @@
 
 public class DiameterOfBinaryTree
 {
-    int diameter = 0;
+    int maxPath = 0 ;
 
     public int diameterOfBinaryTree( TreeNode root )
     {
-        dfs( root, 1 );
-        return diameter;
+         dfs( root );
+        return maxPath;
     }
-
-    private int dfs( TreeNode node, int level )
-    {
-        if( node == null )
-            return level-1;
-
-        int leftLevel = dfs( node.left, level+1 );
-        int rightLevel = dfs( node.right, level+1 ) ;
-        diameter = Math.max( leftLevel + rightLevel - level - level, diameter );
-
-        return Math.max( leftLevel, rightLevel );
+    
+    public int dfs( TreeNode root ){
+        if( root == null ) return 0;
+        
+        int left = dfs( root.left);
+        int right = dfs( root.right);
+        
+        maxPath = Math.max( maxPath, left+right );
+        
+        return Math.max( left, right )+1;
     }
 
     public static void main( String[] args )
