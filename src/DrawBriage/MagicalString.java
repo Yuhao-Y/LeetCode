@@ -18,86 +18,30 @@ public class MagicalString
 {
     public int countString( int n ) {
         
-        if( n ==0 ) return 0;
+        if( n <= 0 ) return 0;
         
-        Map<Character, char[] > map = new HashMap< Character, char[] >();
-        map.put( 'a', new char[] {'e'} );
-        map.put( 'e', new char[] {'a','i'} );
-        map.put( 'i', new char[] {'a','e','o'} );
-        map.put( 'o', new char[] {'i','u'} );
-        map.put( 'u', new char[] {'a'} );
+        long a = 1, e = 1, i = 1, o = 1, u = 1;
         
-        Queue<Character> queue = new LinkedList<Character>();
-        queue.add( 'a' );
-        queue.add( 'e' );
-        queue.add( 'i' );
-        queue.add( 'o' );
-        queue.add( 'u' );
-        
-        for( int i=1; i < n; i++ ) {
+        for( int j=1; j < n; j++) {
+            long aTemp = e + a + u;
+            long eTemp = a + i;
+            long iTemp = e + o;
+            long oTemp = i;
+            long uTemp = i + o;
             
-            int length = queue.size();
-            for( int j=0; j < length; j++ ) {
-                char c = queue.poll();
-                for( Character ch : map.get( c ) ) {
-                    queue.add( ch );
-                }
-            }
-            
+            a = aTemp%1000000007;
+            e = eTemp%1000000007;
+            i = iTemp%1000000007;
+            o = oTemp%1000000007;
+            u = uTemp%1000000007;
         }
         
-        return queue.size();
-    }
-    
-    public int countString2( int n ) {
-        
-        if( n ==0 ) return 0;
-        
-        Map<Character, char[] > map = new HashMap< Character, char[] >();
-        map.put( 'a', new char[] {'e'} );
-        map.put( 'e', new char[] {'a','i'} );
-        map.put( 'i', new char[] {'a','e','o'} );
-        map.put( 'o', new char[] {'i','u'} );
-        map.put( 'u', new char[] {'a'} );
-        
-        Map<Character, Integer > count = new HashMap<Character, Integer >();
-        count.put( 'a',1 );
-        count.put( 'e',1 );
-        count.put( 'i',1 );
-        count.put( 'o',1 );
-        count.put( 'u',1 );
-        
-        for( int i=1; i < n; i++ ) {
-            
-            int[] lettersCount = new int[26];
-            
-            for( Character c : count.keySet() ) {
-                int times = count.get( c );
-                for( Character ch : map.get( c )) {
-                    lettersCount[ch-'a'] += times;
-                }
-            }
-            
-            for( Character c : count.keySet() ) {
-                count.put( c, lettersCount[c-'a'] );
-            }
-            
-        }
-        
-        int res = 0;
-        for( Character c : count.keySet() ) {
-            res += count.get( c );
-        }
-        return res;
+        return (int)( ( a+e+i+o+u) % 1000000007 );
     }
     
     public static void main( String[] args ) {
         long a = System.currentTimeMillis();
-        System.out.println( new MagicalString().countString(20) );
+        System.out.println( new MagicalString().countString(1000) );
         System.out.println( System.currentTimeMillis() - a );
-        
-        long b = System.currentTimeMillis();
-        System.out.println( new MagicalString().countString2(20) );
-        System.out.println( System.currentTimeMillis() - b );
     }
 }
